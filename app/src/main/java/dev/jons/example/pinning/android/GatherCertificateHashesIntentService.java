@@ -23,8 +23,8 @@ import java.security.cert.CertificateEncodingException;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
 
-public class GatherCertificateHashes extends IntentService {
-    public static final String TAG = GatherCertificateHashes.class.getCanonicalName();
+public class GatherCertificateHashesIntentService extends IntentService {
+    public static final String TAG = GatherCertificateHashesIntentService.class.getCanonicalName();
     public static final String ACTION_GET_CERTIST_HASHES = "dev.jons.example.pinning.android.action.GET_CERTIST_HASHES";
     public static final String ACTION_GET_LOCAL_SOCKET_HASHES = "dev.jons.example.pinning.android.action.GET_LOCAL_SOCKET_HASHES";
     public static final String ACTION_RESULT_LOCAL_SOCKET_HASHES = "dev.jons.example.pinning.android.action.RESULT_LOCAL_SOCKET_HASHES";
@@ -32,20 +32,20 @@ public class GatherCertificateHashes extends IntentService {
     public static final String EXTRAS_HOST_NAME = "dev.jons.example.pinning.android.extra.HOST_NAME";
     public static final String RESULT_SHA256_HASHES = "dev.jons.example.pinning.android.result.RESULT_SHA256_HASHES";
 
-    public GatherCertificateHashes() {
+    public GatherCertificateHashesIntentService() {
         super("RetrieveCertIstApiResults");
     }
 
 
     public static void getCertistApiHashesForDomain(Context context, String domain) {
-        Intent intent = new Intent(context, GatherCertificateHashes.class);
+        Intent intent = new Intent(context, GatherCertificateHashesIntentService.class);
         intent.setAction(ACTION_GET_CERTIST_HASHES);
         intent.putExtra(EXTRAS_HOST_NAME, domain);
         context.startService(intent);
     }
 
     public static void getLocalSocketHashesForDomain(Context context, String domain) {
-        Intent intent = new Intent(context, GatherCertificateHashes.class);
+        Intent intent = new Intent(context, GatherCertificateHashesIntentService.class);
         intent.setAction(ACTION_GET_LOCAL_SOCKET_HASHES);
         intent.putExtra(EXTRAS_HOST_NAME, domain);
         context.startService(intent);

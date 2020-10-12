@@ -12,7 +12,7 @@
 
         
         <service
-            android:name=".GatherCertificateHashes"
+            android:name=".GatherCertificateHashesIntentService"
             android:exported="false" />
 
         <activity

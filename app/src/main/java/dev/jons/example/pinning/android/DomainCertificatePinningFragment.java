@@ -30,9 +30,9 @@ public class DomainCertificatePinningFragment extends Fragment {
     private EditText editText;
     private TextView doHashesMatch;
     private IntentFilter localResultsFilter = new IntentFilter(
-            GatherCertificateHashes.ACTION_RESULT_LOCAL_SOCKET_HASHES);
+            GatherCertificateHashesIntentService.ACTION_RESULT_LOCAL_SOCKET_HASHES);
     private IntentFilter certIstResultsFilter = new IntentFilter(
-            GatherCertificateHashes.ACTION_RESULT_CERTIST_HASHES);
+            GatherCertificateHashesIntentService.ACTION_RESULT_CERTIST_HASHES);
 
 
     public DomainCertificatePinningFragment() {
@@ -75,8 +75,8 @@ public class DomainCertificatePinningFragment extends Fragment {
         manager.registerReceiver(getResultsReceiver(manager,
                 certIstResultsAdapter, R.id.certist_results_label), certIstResultsFilter);
         String domain = editText.getText().toString();
-        GatherCertificateHashes.getCertistApiHashesForDomain(rootView.getContext(), domain);
-        GatherCertificateHashes.getLocalSocketHashesForDomain(rootView.getContext(), domain);
+        GatherCertificateHashesIntentService.getCertistApiHashesForDomain(rootView.getContext(), domain);
+        GatherCertificateHashesIntentService.getLocalSocketHashesForDomain(rootView.getContext(), domain);
     }
 
     private BroadcastReceiver getResultsReceiver(
@@ -90,7 +90,7 @@ public class DomainCertificatePinningFragment extends Fragment {
                 adapter.clear();
                 Bundle extras = intent.getExtras();
                 if (extras != null) {
-                    adapter.addAll(extras.getStringArray(GatherCertificateHashes.RESULT_SHA256_HASHES));
+                    adapter.addAll(extras.getStringArray(GatherCertificateHashesIntentService.RESULT_SHA256_HASHES));
                 }
                 adapter.notifyDataSetChanged();
                 allFound();
